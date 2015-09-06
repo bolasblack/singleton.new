@@ -142,7 +142,7 @@ module Singleton
         end
       end
 
-      klass.define_singleton_method :new do
+      get_instance = -> do
         return @singleton__instance__ if @singleton__instance__
         @singleton__mutex__.synchronize {
           return @singleton__instance__ if @singleton__instance__
@@ -150,6 +150,8 @@ module Singleton
         }
         @singleton__instance__
       end
+      klass.define_singleton_method :new, get_instance
+      klass.define_singleton_method :instance, get_instance
 
       klass
     end

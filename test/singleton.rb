@@ -1,9 +1,15 @@
 require 'test/unit'
-require 'singleton'
+require 'singleton.new'
 
 class TestSingleton < Test::Unit::TestCase
   class SingletonTest
     include Singleton
+  end
+
+  def test_instance_method
+    o1 = SingletonTest.instance
+    o2 = SingletonTest.instance
+    assert_same(o1, o2)
   end
 
   def test_marshal
